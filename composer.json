@@ -1,0 +1,57 @@
+{
+    "name": "lbhurtado/ballot-image",
+    "description": "This is an image helper package for VTM.",
+    "keywords": [
+        "lbhurtado",
+        "ballotimage"
+    ],
+    "homepage": "https://github.com/lbhurtado/ballotimage",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Lester Hurtado",
+            "email": "lester@hurtado.ph",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "5.8.*",
+        "orlyapps/zbar-qrdecoder": "^3.0",
+        "spatie/laravel-medialibrary": "^7.6",
+        "spatie/laravel-schemaless-attributes": "^1.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "LBHurtado\\BallotImage\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LBHurtado\\BallotImage\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LBHurtado\\BallotImage\\BallotImageServiceProvider"
+            ],
+            "aliases": {
+                "BallotImage": "LBHurtado\\BallotImage\\BallotImageFacade"
+            }
+        }
+    }
+}
