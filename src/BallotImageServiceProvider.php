@@ -21,7 +21,7 @@ class BallotImageServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('ballotimage.php'),
+                __DIR__.'/../config/config.php' => config_path('ballot-image.php'),
             ], 'config');
 
             // Publishing the views.
@@ -50,7 +50,7 @@ class BallotImageServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'ballotimage');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'ballot-image');
 
         // Register the main class to use with the facade
         $this->app->singleton('ballotimage', function () {
