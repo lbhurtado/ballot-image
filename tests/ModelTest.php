@@ -106,4 +106,18 @@ class ModelTest extends TestCase
             'collection_name' => Image::MEDIA_COLLECTION
         ]);
     }
+
+    /** @test */
+    public function image_can_detect_qr_code()
+    {
+        /*** arrange ***/
+        $image = Image::create(['sender_mac_address' => $this->faker->macAddress]);
+        $image->addMedia($this->sourceImageFile)->toMediaCollection(Image::MEDIA_COLLECTION);
+
+        /*** act ***/
+        $image->transfuseQRCode();
+
+        /*** assert ***/
+        $this->assertEquals('0001-1234', $image->qr_code);
+    }
 }

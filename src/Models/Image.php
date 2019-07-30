@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 //use App\Http\Requests\BallotImageRequest as Request;
-use Spatie\SchemalessAttributes\SchemalessAttributes;
 use LBHurtado\BallotImage\Exceptions\ZBarPathException;
+use LBHurtado\BallotImage\Traits\HasSchemalessAttributes;
 
 class Image extends Model implements HasMedia
 {
-    use HasMediaTrait;
+    use HasMediaTrait, HasSchemalessAttributes;
 
     const MEDIA_COLLECTION = 'ballots';
 
@@ -40,8 +40,8 @@ class Image extends Model implements HasMedia
         if (!file_exists($path = config('ballot-image.zbar.path')))
             throw new ZBarPathException;
 
-        tap(new ZbarDecoder(config('ballot-image.zbar.path')), function(ZbarDecoder $zbar) {
-            tap($zbar->make($this->path), function ($result) {
+        tap(new ZbarDecoder(config('ballot-image.zbar')), function(ZbarDecoder $zbar) {
+            tap($zbar->make($this->mediaPath), function ($result) {
                 if (!empty($result->getText()))
                     $this->update(['qr_code' => $result->getText()]);
             });
